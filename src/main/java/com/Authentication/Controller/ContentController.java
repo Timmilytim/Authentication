@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ContentController {
 
-    @GetMapping("/login")
+    @GetMapping("/req/login")
     public String login() {
         return "login"; // Returns the login view
     }
@@ -16,4 +16,8 @@ public class ContentController {
         return "signup"; // Returns the signup view
     }
 
+    @GetMapping("/index")
+    public String home() {
+        return "index"; // Returns the home view
+    }
 }
