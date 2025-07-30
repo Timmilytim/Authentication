@@ -3,74 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <title>Signup Form</title>
+  <link rel="stylesheet" href="/css/style.css">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <link rel="stylesheet" href="/css/style.css">
   <script src="/js/signup.js" defer></script>
 </head>
 <body>
 <section>
-  <form action="/req/signup" method="post">
-    <h1>Sign Up</h1>
+  <form id="signup-form" action="/req/signup" method="post">
+
+    <!-- Optional Top Icon -->
+    <div class="icon-header">
+      <ion-icon name="person-add-outline" class="big-icon"></ion-icon>
+    </div>
+
+    <h1>Create Account</h1>
+
     <div class="inputbox">
       <ion-icon name="person-outline"></ion-icon>
-      <input type="text" id= "username" name="username" required>
-      <label for="">Name</label>
+      <input type="text" id="username" name="username" required>
+      <label for="username">Username</label>
     </div>
+
     <div class="inputbox">
       <ion-icon name="mail-outline"></ion-icon>
       <input type="email" id="email" name="email" required>
-      <label for="">Email</label>
+      <label for="email">Email</label>
     </div>
 
     <div class="inputbox">
       <ion-icon name="lock-closed-outline"></ion-icon>
       <input type="password" id="password" name="password" required>
-      <label for="">Password</label>
+      <label for="password">Password</label>
     </div>
+
     <div class="inputbox">
       <ion-icon name="lock-closed-outline"></ion-icon>
       <input type="password" id="passwordcon" name="passwordcon" required>
-      <label for="">Confirm Password</label>
+      <label for="passwordcon">Confirm Password</label>
     </div>
-    <button id= "submit" type="submit">Sign Up</button>
+
+    <button type="submit" id="submit">Sign Up</button>
+
     <div class="register">
-      <p>Already have an account? <a href="">Log In</a></p>
+      <p>Already have an account? <a href="/req/login">Log In</a></p>
     </div>
   </form>
 </section>
-</body>
-</html>
 
 <script>
-  const submitButttom = document.getElementById("submit");
-  submitButttom.addEventListener('click',()=>{
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('passwordcon').value;
-    const email = document.getElementById('email').value;
-    const data ={
+  document.getElementById("signup-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("passwordcon").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const data = {
       username,
       email,
       password
-    }
+    };
 
-    if(password == confirmPassword){
-      const jsonData = JSON.stringify(data);
-      fetch('/req/signup', {
-        method: 'POST',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: jsonData
-      })
-      .then(response =>{
-        //alert('succesfull');
-        //if(response.status == 200){
-          //alert('succesfull');
-        //xs}
-      })
-    }
-
-  })
+    fetch("/req/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Signup successful!");
+        window.location.href = "/req/login";
+      } else {
+        alert("Signup failed.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred.");
+    });
+  });
 </script>
+</body>
+</html>
