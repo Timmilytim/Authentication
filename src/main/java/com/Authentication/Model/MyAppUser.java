@@ -1,9 +1,6 @@
 package com.Authentication.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
@@ -16,6 +13,36 @@ public class MyAppUser {
     private String username; // Username for the user
     private String email; // Email address of the user
     private String password; // Password for the user
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
+
+    private String verificationToken; // Token for email verification
+    private boolean isVerified; // Flag to check if the user is verified
+
+    @Column(name = "reset_token")
+    private String resetToken; // Token for password reset
 
     public Long getId() {
         return id;

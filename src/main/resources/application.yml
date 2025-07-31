@@ -4,6 +4,17 @@ server:
     include-binding-errors: always
 
 spring:
+  email:
+    host: smtp.example.com
+    port: 587
+    username: email@gmail.com
+    password: ghak nbkz fbsv rvkt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   datasource:
     url: jdbc:mysql://localhost:3306/register
     username: root

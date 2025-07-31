@@ -1,5 +1,7 @@
-package com.Authentication.Model;
+package com.Authentication.Service;
 
+import com.Authentication.Model.MyAppUser;
+import com.Authentication.Model.MyAppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
