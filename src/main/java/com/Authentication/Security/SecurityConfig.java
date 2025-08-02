@@ -52,7 +52,8 @@ public class SecurityConfig {
                 })
                     // Configures authorization rules
                     .authorizeHttpRequests(registry ->{
-                        registry.requestMatchers("/req/signup", "/css/**", "/js/**").permitAll(); // Signup page accessible to everyone
+                        registry.requestMatchers("/req/**", "/css/**", "/js/**").permitAll(); // Signup page
+                        // accessible to everyone
                         registry.anyRequest().authenticated(); // All other requests require authentication
                     })
                     .build(); // Builds the security filter chain

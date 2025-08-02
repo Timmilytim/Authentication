@@ -3,6 +3,7 @@ package com.Authentication.Controller;
 import com.Authentication.Model.MyAppUser;
 import com.Authentication.Model.MyAppUserRepository;
 import com.Authentication.Service.EmailService;
+import com.Authentication.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class RegistrationController {
                 return new ResponseEntity<>("User already exists with this email and verified",
                         HttpStatus.BAD_REQUEST);
             }else {
-                String verificationToken = "123123";
+                String verificationToken = JwtTokenUtil.generateToken(user.getEmail());
                 existingAppUser.setVerificationToken(verificationToken); // Sets a new verification token for the existing user
                 myAppUserRepository.save(existingAppUser);
                 emailService.sendVerificationEmail(existingAppUser.getEmail(), verificationToken); // Sends a verification email to the existing user
@@ -41,7 +42,7 @@ public class RegistrationController {
             }
         }
         user.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypts the password before saving
-        String verificationToken = "123123";
+        String verificationToken = JwtTokenUtil.generateToken(user.getEmail());
         user.setVerificationToken(verificationToken); // Sets a verification token for the new user
         myAppUserRepository.save(user); // Saves the user and returns the saved entity
         emailService.sendVerificationEmail(user.getEmail(), verificationToken); // Sends a verification email to the new user

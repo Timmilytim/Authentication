@@ -4,11 +4,11 @@ server:
     include-binding-errors: always
 
 spring:
-  email:
-    host: smtp.example.com
+  mail:
+    host: smtp.gmail.com
     port: 587
-    username: email@gmail.com
-    password: ghak nbkz fbsv rvkt
+    username: oluwapelumiodus@gmail.com
+    password: ghaknbkzfbsvrvkt
     properties:
       mail:
         smtp:
